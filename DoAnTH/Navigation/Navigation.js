@@ -30,24 +30,26 @@ const StackHome = createStackNavigator({
 let HomeStack = createAppContainer(StackHome);
 
 const StackAuth = createStackNavigator({
-  Register:{
-    screen:Register,
-    navigationOptions:{
-      header:null
-    }
-  },
+ 
   // HomeSearch:{
   //   screen:HomeSearch,
   //   navigationOptions:{
   //     header:null
   //   }
   // },
-  Account:{
-    screen:Account,
+  Nearby:{
+    screen:Nearby,
     navigationOptions:{
       header:null
     }
-  }
+  },
+  Register:{
+    screen:Register,
+    navigationOptions:{
+      header:null
+    }
+  },
+
 
 }) 
 let AuthStack = createAppContainer(StackAuth);
