@@ -1,5 +1,5 @@
 const signIn = (email,password) => (
-    fetch('http://192.168.206.2:3001/user/login', { 
+    fetch('http://192.168.1.28:3001/user/login', { 
         method: 'POST',
         headers: {
            'Accept': 'application/json',

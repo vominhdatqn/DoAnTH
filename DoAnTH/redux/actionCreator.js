@@ -26,7 +26,7 @@ export const fetchHouses = () => {
     return async dispatch => {
       dispatch(fetchProductsBegin());
       try {
-        let response = await fetch("http://192.168.206.2:3001/api/houses");
+        let response = await fetch("http://192.168.1.28:3001/api/houses");
         let json = await response.json();
         dispatch(fetchProductsSuccess(json.houses));
       } catch (error) {

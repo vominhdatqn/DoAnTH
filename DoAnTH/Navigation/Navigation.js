@@ -37,8 +37,8 @@ const StackAuth = createStackNavigator({
   //     header:null
   //   }
   // },
-  Nearby:{
-    screen:Nearby,
+  Account:{
+    screen:Account,
     navigationOptions:{
       header:null
     }
