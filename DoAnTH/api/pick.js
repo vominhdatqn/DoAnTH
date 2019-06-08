@@ -20,8 +20,11 @@ const options = {
         console.log('User tapped custom button: ', response.customButton);
       }
       else {
-        let source = { uri: response.uri };
-        cb(source, response.data,response.type,response.fileName);
+        let uri = { uri: response.uri };
+        let type = {type:response.type };
+        let name = {name:response.fileName };
+        cb(uri,type,name);
+        // cb(source, response.data,response.type,response.fileName);
       }
     });
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ImageBackground, StyleSheet ,Image,View,Text,TextInput,TouchableOpacity,Alert} from 'react-native'
 
-const url = "http://192.168.206.2:3001/api/register";
+const url = "http://192.168.1.252:3001/api/register";
 
 export default class Register extends Component {
     constructor(props){

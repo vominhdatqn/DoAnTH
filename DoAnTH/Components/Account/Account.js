@@ -34,20 +34,10 @@ handleNextButton(){
        const {email,password} = this.state;
        signIn(email,password)
       .then((responseJson) => {
-        //   this.setState({checkLogin:responseJson.success});
-        //   if(this.state.checkLogin ==2){
-        //    Alert.alert("Thông báo!","Bạn nhập thông tin email và password!");
-        //   }
-        //   else if(this.state.checkLogin ==1){
-        //          Alert.alert("Thông báo!","Bạn đã đăng nhập thành công!");
-        //   }
-        //   else{
-        //       Alert.alert("Thông báo!","Bạn đã đăng nhập không thành công!");
-        //   }
           if(responseJson.success){
             var user = responseJson.token;
             Alert.alert("Thông báo!","Bạn đã đăng nhập thành công!");
-            console.log(user);
+            // console.log(user);
             AsyncStorage.setItem('token',user);
             this.props.navigation.navigate('Main')
         }

@@ -4,92 +4,101 @@ import {
     ScrollView,
     View,
     Text,Image,
-    TextInput,StyleSheet,TouchableOpacity
+    Alert,
+    TextInput,StyleSheet,TouchableOpacity,
+   
 } from 'react-native'
 import pick from '../api/pick.js';
-import RNFetchBlob from 'react-native-fetch-blob'
+
 export default class Transplants extends Component {
     constructor(props){
         super(props);
         this.state = {
-            avatarSource:null,
-            data:null,
-            names:'',
+            ten:'',
             house:'',
-           
          
         }
-        
-    }
-    
-  uploadImageToServer = () => {
- const {house,names,data} = this.state;
- 
-    RNFetchBlob.fetch('POST', 'http://192.168.1.252:3001/', {
-      Authorization: "Bearer access-token",
-      otherHeader: "foo",
-      'Content-Type': 'multipart/form-data',
-    }, [
-        { name: 'avatar', filename: 'avatar.png', data:data },
-        { name: 'ten', data : names },
-        { name: 'nha', data : house },
        
-      ])
-      .then(res => console.log(res))
-      .catch(err => console.log(err))
     }
-//     const data = new FormData();
-//     data.append('imgFile',(
-//       avatarSource, 
-//       type,
-//       name
-//     )
-    
-//  );
-//     const config = {
-//       method: 'POST',
-//       headers: {
-//        'Accept': 'application/json',
-//        'Content-Type': 'multipart/form-data',
-//       },
-//       body: data,
-//      };
-//      fetch("http://192.168.1.252:3001/", config)
-//      .then((checkStatusAndGetJSONResponse)=>{       
-//        console.log(checkStatusAndGetJSONResponse);
-//      }).catch((err)=>{console.log(err)});
+  //   try {
+  //     const config = {
+  //       method: 'POST',
+  //       headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'multipart/form-data',
+  //       },
+  //       body: data,
+  //   }
+  //   const res = await fetch('http://192.168.1.28:3001/upload',config);
+  //   if (res.ok) {
+  //     console.log(res);
+  //     return res;
+  // } else {
+  //    console.log("lỗi");
+  // }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  uploadImageToServer(){
+     const {URI,TYPE,NAME,ten,house} = this.state;
 
-//     }
+     const data = new FormData(); 
+
+      data.append('imgFile', {  
+      uri:URI.uri, 
+      type:TYPE.type,
+      name:NAME.name,
+      });
+      // data.append('ten',ten);
+      // data.append('house',house);
+      
+      // const config = {
+      //   method: 'POST',
+      //   headers: {
+         
+      //    'Content-Type': 'multipart/form-data',
+      //   },
+      //   body: data,
+      //  };
+      fetch('http://192.168.1.252:3001/upload',{ method: 'POST',headers: {  
+        "Content-Type": "multipart/form-data",
+        "otherHeader": "foo",
+        } , body: data })
+     .then((res) => res.json())
+     .then((res) => { console.log("response" +JSON.stringify(res)); })
+     .catch((e) => console.log(e))
+     .done()
+   }
   
     show(){
-      pick((source, data,type,name) => this.setState({avatarSource: source, data: data,type:type,name:name}));
+      pick((uri,type,name) => this.setState({URI:uri,TYPE:type,NAME:name}));
     }
 
   render() {
-    console.log(this.state.avatarSource);
-    let img = this.state.avatarSource === null ? null :
-    <Image source={this.state.avatarSource} style={{height:50,width:50}} />
+    
+    let img = this.state.URI === null ? null :
+    <Image source={this.state.URI} style={{height:50,width:50}} />
     return (
         <ScrollView style = {{flex:1, backgroundColor: 'white'}} ref = 'scroll'>
           <KeyboardAvoidingView behavior='position' style = {{backgroundColor: 'white', flex: 1}}>
         <TouchableOpacity onPress={this.show.bind(this)}>
             <Text>Select Image</Text>
         </TouchableOpacity>
-        
         {img}
         <TextInput 
-        value={this.state.names}
+        value={this.state.ten}
         placeholder="Name"
-        onChangeText={names => this.setState({names})}
+        onChangeText={ten => this.setState({ten})}
         />
         <TextInput 
         value={this.state.house}
         placeholder="House"
         onChangeText={house => this.setState({house})}
         />
-        <TouchableOpacity onPress={this.uploadImageToServer} style={{height:50,width:50}}>
+        <TouchableOpacity onPress={this.uploadImageToServer.bind(this)} style={{height:50,width:50}}>
             <Text>Upload Server</Text>
         </TouchableOpacity>
+
           </KeyboardAvoidingView>
         </ScrollView>
     )

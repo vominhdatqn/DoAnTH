@@ -38,7 +38,7 @@ export default class HomeTrend extends Component {
                 </View>
             }
             numColumns={3}
-            keyExtractor={(item, index) => index.toString}
+            keyExtractor={(item, index) => item.key}
             />          
         </View>
     )

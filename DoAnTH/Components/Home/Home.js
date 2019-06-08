@@ -23,7 +23,7 @@ export default class Home extends Component {
                 <View style={container}>
                     <AddModal />
                     <HomeSwiper />
-                    <HomeSearch />
+                    <HomeSearch navigation={this.props.navigation} />
                     <TitleRoom {...TitleHome}/>
                     <HomeTrend />
                     <HomeRoom navigation={this.props.navigation} />

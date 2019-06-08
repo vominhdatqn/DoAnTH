@@ -23,7 +23,7 @@ export default class Profile extends Component {
     // if(value !=null){
     //   this.setState({userName:value})
     // }
-    fetch('http://192.168.1.28:3001/api/checkToken',{
+    fetch('http://192.168.1.252:3001/api/checkToken',{
             method: 'POST',
             headers: {
               'Authorization': 'Bearer ' + value

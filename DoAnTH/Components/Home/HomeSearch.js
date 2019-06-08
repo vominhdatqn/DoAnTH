@@ -6,8 +6,13 @@ import {connect} from 'react-redux';
 import {showLocation} from '../../redux/actionCreator';
  class HomeSearch extends Component {
 
+  Search() {
+    const { navigation } = this.props;
+    navigation.navigate('Message');
+  }
+
   render() {
-    
+    const { navigation } = this.props;
     const {container,search,iconSearch,rows,columms,icons,titleIcons,Icon1,Icon2,Icon3,Icon4,titleText,titleTextPink} = styles;
     return (
       <View style={container}>
@@ -15,19 +20,17 @@ import {showLocation} from '../../redux/actionCreator';
           <TouchableOpacity onPress={() => this.props.showLocation()}>
             <View style={{ flex: 1, flexDirection: 'row', borderRadius: 12, backgroundColor: '#d9d9d9', justifyContent: 'center', alignItems: 'center' }}>
               <Ionicons name="source-commit-start-next-local" size={23} color="#0693e3" />
-              <Text parentLocal={this} style={{ fontSize: 12,fontWeight: '400', fontFamily: 'Cochin', color: '#0693e3', marginRight: 4 }}>HCM</Text>
-
+              <Text  style={{ fontSize: 12,fontWeight: '400', fontFamily: 'Cochin', color: '#0693e3', marginRight: 4 }}>HCM</Text>
+              {/* parentLocal={this} */}
             </View>
           </TouchableOpacity>
-          <View style={{ flex: 5, justifyContent: 'center', alignItems: 'flex-start' }}>
+          <View style={{ flex: 5, justifyContent: 'center' }}>
             <TextInput
-              placeholderTextColor={"#333333"}
+              style={{  width: '100%', fontFamily: "Cochin", fontSize:10, }}
               placeholder={"Tìm quận, tên đường"}
-            // onKeyPress={this.Search.bind(this)}
-            // onFocus={this.Search.bind(this)} 
-            // onSubmitEditing={this.onSearch.bind(this)}
+              onFocus={this.Search.bind(this)} 
             />
-            {/* <Text style={{marginLeft:5, fontSize:12,fontFamily:'Cochin',color:'#333333',}}>Tìm quận, tên đường</Text> */}
+            
           </View>
 
         </View>
@@ -47,7 +50,7 @@ import {showLocation} from '../../redux/actionCreator';
             <View style={columms}>
               <View style={icons}>
                 <View style={Icon2}>
-                  <Ionicons name="near-me" size={25} color="white" />
+                  <Ionicons name="near-me" size={25} color="white" onPress={() => navigation.navigate('Nearby')} />
                 </View>
               </View>
               <View style={titleIcons}>

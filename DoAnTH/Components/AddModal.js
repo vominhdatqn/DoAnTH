@@ -23,7 +23,7 @@ class AddModal extends Component {
     const {modalContent,button,textButton} = styles;
     const {isVisible} = this.props;
     const {value} = this.state;
-    console.log("huhu"+isVisible)
+    // console.log("huhu"+isVisible)
     return (
       <Modal
         isVisible={isVisible}

@@ -22,11 +22,11 @@ export const fetchProductsFailure = error => ({
   payload:error
 });
 
-export const fetchHouses = () => {
+export const fetchHouses = (page,pageSize) => {
     return async dispatch => {
       dispatch(fetchProductsBegin());
       try {
-        let response = await fetch("http://192.168.1.28:3001/api/houses");
+        let response = await fetch(`http://192.168.1.252:3001/api/houses?page=${page}&pageSize=${pageSize}`);
         let json = await response.json();
         dispatch(fetchProductsSuccess(json.houses));
       } catch (error) {

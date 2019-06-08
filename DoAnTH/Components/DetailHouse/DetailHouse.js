@@ -4,8 +4,8 @@ import Icons from 'react-native-vector-icons/SimpleLineIcons'
 const screen = Dimensions.get('window');
 
 
-const urlUser = "http://192.168.206.2:3001/api/userID";
-const urlCate = "http://192.168.206.2:3001/api/cateID";
+const urlUser = "http://192.168.1.252:3001/api/userID";
+const urlCate = "http://192.168.1.252:3001/api/cateID";
 export default class detailHouse extends Component {
 constructor(props){
     super(props);

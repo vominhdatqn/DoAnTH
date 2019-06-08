@@ -7,11 +7,13 @@ class HomeRoom extends Component {
  constructor(props){
    super(props);
    this.state = {
-     navigation:this.props.navigation
+    page: 1,
+    pageSize: 4,
    }
  }
   componentDidMount(){
-    this.props.fetchHouses();
+    const { page, pageSize } = this.state;
+    this.props.fetchHouses(page,pageSize);
   }
   render() {
       const {container,GridViewContainer,viewBackgroundImage,GridViewTextLayout,containerViewBackGround,containerTitle} = styles;
@@ -21,7 +23,7 @@ class HomeRoom extends Component {
       <FlatList 
         data={houseAPI}              
         renderItem={({item})=>
-          <View style={GridViewContainer}>   
+          <View style={GridViewContainer} key={item.house_id}>   
          
                       <View style={containerViewBackGround}>
                       <TouchableOpacity onPress={()=>navigation.navigate("DetailHouse",{...item})}>
@@ -32,7 +34,7 @@ class HomeRoom extends Component {
                         </TouchableOpacity>   
                 </View>    
                             
-              <View style={containerTitle}>
+              <View style={containerTitle} >
                 <View style={{flex:2,justifyContent:'flex-end'}}>
                   <Text numberOfLines={2} style={{fontSize:13,fontWeight:'bold',color:'black'}}>{item.houseName}</Text>
                 </View>
@@ -40,14 +42,14 @@ class HomeRoom extends Component {
                 <Text style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"#e91e63"}}>{item.rent_cost} triệu/phòng</Text>
                 </View>
                 <View style={{flex:2}}>
-                <Text  numberOfLines={1} style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"gray"}}>{item.address}</Text>
+                <Text  numberOfLines={1} style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"gray"}}>{`${item.Street},Phường ${item.guild},Quận ${item.township},TP.${item.city}`}</Text>
                 </View>
               
               </View>                             
           </View>
       }
       numColumns={2}
-      keyExtractor={(item, index) => item.key}
+      keyExtractor={(item, index) => item.house_id}
       />          
   </View>
     )
