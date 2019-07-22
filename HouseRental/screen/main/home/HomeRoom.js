@@ -8,25 +8,41 @@ import {
   ImageBackground,
   TouchableOpacity,
   ActivityIndicator,
+  RefreshControl,
+  ScrollView
 } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchHouses } from '../../../redux/actionCreator';
+
 const { width, height } = Dimensions.get('window');
 
 class HomeRoom extends Component {
   constructor(props) {
     super(props);
+    this.page = 1;
+    this.pageSize = 4;
     this.state = {
-      page: 1,
-      pageSize: 4,
+      isRefreshing: false,
     }
   }
   componentDidMount() {
-    const { page, pageSize } = this.state;
-    this.props.fetchHouses(page, pageSize);
+    this.props.fetchHouses(this.page, this.pageSize);
   }
 
- 
+  handleLoadMore () {
+    // console.log(!this.props.loading);
+    if (!this.props.loading) {
+      this.page = this.page + 1; // increase page by 1
+      this.props.fetchHouses(this.page, this.pageSize); // method for API call 
+    }
+  };
+   formatCash = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e6).toFixed(1) + " triệu";
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + " triệu";
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + " tỷ";
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+  };
   render() {
     const {
       container,
@@ -36,82 +52,98 @@ class HomeRoom extends Component {
       containerTitle,
     } = styles;
     const { houseAPI, navigation, loading } = this.props;
+    console.log("so luong", houseAPI.length)
     if (loading) {
       return (
-        <View style={container}>
+        <ScrollView style={container}>
           <FlatList
             data={houseAPI}
+            pagingEnabled
+            scrollEnabled
+            showsVerticalScrollIndicator={false}
+            
             renderItem={({ item }) =>
-              <View style={[GridViewContainer]} key={item.house_id}>
+              <View style={[GridViewContainer]}>
                 <ActivityIndicator size="large" color="#089cfb" />
               </View>
             }
             numColumns={2}
-            keyExtractor={(item, index) => item.house_id}
+            keyExtractor={(item, index) => index.toString()}
+
           />
-        </View>
+        </ScrollView>
 
       );
     }
     return (
-      <View style={container}>
         <FlatList
+        style={{ marginTop: 20 }}
+          showsVerticalScrollIndicator={true}
+          decelerationRate={0}
+          scrollEventThrottle={16}
+          snapToAlignment="center"
           data={houseAPI}
           renderItem={({ item }) =>
-          <View style={GridViewContainer} key={item.house_id}>
 
-        <View style={containerViewBackGround}>
-          {/* <TouchableOpacity onPress={() => navigation.navigate("DetailHouse", { ...item })}> */}
-          <TouchableOpacity onPress={() => navigation.navigate("DetailHouse", { ...item })}>
-            <ImageBackground source={{ uri: item.images }}
-              style={viewBackgroundImage} resizeMode='cover'
-              borderRadius={6}>
-            </ImageBackground>
-          </TouchableOpacity>
-        </View>
+            <View style={GridViewContainer} >
 
-        <View style={containerTitle}>
-          <View style={{ flex: 2, justifyContent: 'flex-end' }}>
-            <Text numberOfLines={2} style={{
-              fontSize: 13, 
-              fontWeight: 'bold', 
-              color: 'black' 
-              }}
-            >
-            {item.houseName}
-            </Text>
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ 
-              fontSize: 12, 
-              fontWeight: '700', 
-              fontFamily: 'Cochin', 
-              color: "#e91e63" 
-              }}
-            >
-            {item.rent_cost}
-             triệu/phòng
-            </Text>
-          </View>
-          <View style={{ flex: 2 }}>
-            <Text numberOfLines={1} style={{ 
-              fontSize: 12, 
-              fontWeight: '700', 
-              fontFamily: 'Cochin', 
-              color: "gray" 
-              }}
-            >
-            {`${item.Street},Phường ${item.guild},Quận ${item.township},TP.${item.city}`}
-            </Text>
-          </View>
+              <View style={containerViewBackGround}>
+                <TouchableOpacity onPress={() => navigation.navigate("DetailHouse", { ...item })}>
+                  <ImageBackground source={{ uri: item.images }}
+                    style={viewBackgroundImage} resizeMode='cover'
+                    borderRadius={6}>
+                  </ImageBackground>
+                </TouchableOpacity>
+              </View>
 
-        </View>
-      </View>
-        }
+              <View style={containerTitle}>
+                <View style={{ flex: 2, justifyContent: 'flex-end' }}>
+                  <Text numberOfLines={2} style={{
+                    fontSize: 13,
+                    fontWeight: 'bold',
+                    color: 'black'
+                  }}
+                  >
+                    {item.houseName}
+                  </Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{
+                    fontSize: 12,
+                    fontWeight: '700',
+                    fontFamily: 'Cochin',
+                    color: "#e91e63"
+                  }}
+                  >
+                    {this.formatCash(item.rent_cost)}
+                     /phòng
+            </Text>
+                </View>
+                <View style={{ flex: 2 }}>
+                  <Text numberOfLines={1} style={{
+                    fontSize: 12,
+                    fontWeight: '700',
+                    fontFamily: 'Cochin',
+                    color: "gray"
+                  }}
+                  >
+                    {`${item.Street},Phường ${item.guild},Quận ${item.township},TP.${item.city}`}
+                  </Text>
+                </View>
+
+              </View>
+            </View>
+          }
           numColumns={2}
-          keyExtractor={(item, index) => item.house_id}
+          keyExtractor={(item, index) => index.toString()}
+          // onEndReachedThreshold={10}
+          // onEndReached={
+          //   // this.handleLoadMore
+          //   // () =>  this.handleLoadMore()
+          //   () =>  console.log("load nhieu hon")
+          // }
         />
-      </View>
+    // </ScrollView>
     )
   }
 }

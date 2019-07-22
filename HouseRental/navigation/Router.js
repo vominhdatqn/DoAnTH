@@ -21,7 +21,9 @@ import PostConfirm from '../screen/main/postNews/PostConfirm';
 import Search from '../screen/main/search';
 import DetailHouse from '../screen/main/detailHouse';
 import Trend from '../screen/main/trend';
-
+import List from '../screen/ui/List';
+import Article from '../screen/ui/Articlel';
+import EditProfile from '../screen/main/editProfile';
 const StackHome = createStackNavigator({
       Home:{
         screen:Home,
@@ -72,7 +74,7 @@ const StackHome = createStackNavigator({
         }
       },
 }) 
-let HomeStack = createAppContainer(StackHome);
+const HomeStack = createAppContainer(StackHome);
 
 const StackAuth = createStackNavigator({
 
@@ -91,15 +93,54 @@ const StackAuth = createStackNavigator({
 
 
 }) 
-let AuthStack = createAppContainer(StackAuth);
+const AuthStack = createAppContainer(StackAuth);
+
+const StackUI = createStackNavigator({
+  Profile,
+  EditProfile,
+  Article,
+},
+{
+  initialRouteName: 'Profile',
+  defaultNavigationOptions: {
+    header: null
+    // headerStyle: {
+    //   borderBottomColor: 'transparent',
+    //   marginTop: 24,
+    //   backgroundColor: 'green'
+    // }
+  }
+}
+);
+const StrackProfile = createAppContainer(StackUI);
+
+const NearbyUI = createStackNavigator({
+ 
+  Nearby,
+  DetailHouse,
+},
+{
+  initialRouteName: 'Nearby',
+  defaultNavigationOptions: {
+    header: null
+    // headerStyle: {
+    //   borderBottomColor: 'transparent',
+    //   marginTop: 24,
+    //   backgroundColor: 'green'
+    // }
+  }
+}
+);
+const StackNearby = createAppContainer(NearbyUI);
+
 
 const TabBottom = createMaterialTopTabNavigator(
 {
     Home:HomeStack,
-    Transplants:Transplants,
-    Nearby:Nearby,
+    // Transplants:Transplants,
+    Nearby:StackNearby,
     Message:Message,
-    Profile:Profile,
+    Profile:StrackProfile,
 },{ 
     defaultNavigationOptions: ({navigation}) => ({  
         tabBarIcon: ({ focused, tintColor,horizontal }) => {
@@ -107,8 +148,8 @@ const TabBottom = createMaterialTopTabNavigator(
             let iconName;
             if (routeName === 'Home') {
               iconName = `home-city${focused ? '' : '-outline'}`;
-            } else if (routeName === 'Transplants') {
-              iconName = `account-group${focused ? '' : '-outline'}`;
+            // } else if (routeName === 'Transplants') {
+            //   iconName = `account-group${focused ? '' : '-outline'}`;
             } else if (routeName === 'Nearby') {
               iconName = `google-nearby${focused ? '' : ''}`;
             } else if (routeName ==='Message'){

@@ -38,7 +38,6 @@ componentDidMount(){
     this.fetchCateHouse();
    
 }
-
  fetchCateHouse = async () => {
   const { cate_id } = this.state;
     try {
@@ -53,9 +52,15 @@ componentDidMount(){
     }
 
 }
-
+formatCash = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e6).toFixed(1) + " triệu";
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + " triệu";
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + " tỷ";
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+  };
     render() {
-        const { cateHouse, user } = this.state;
+        const { cateHouse } = this.state;
         const {textTitle,header,container,rowTitle,rowAddress,rowNote} = styles;
         const {houseName,images,rent_cost,area,Deposit,Street,guild,township,city,note,phone} = this.props.navigation.state.params;
         return (
@@ -68,14 +73,14 @@ componentDidMount(){
                         <View style={header}>
                             
                             <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => this.props.navigation.goBack()}>
-                                <Icons name="arrow-left" size={25} color={"white"} />
+                                <Icons name="arrow-left" size={20} color={"white"} />
                             </TouchableOpacity>
 
 
                             <Text style={[textTitle,{fontSize:20,color:'#ffffff'}]}>Chi tiết phòng</Text>
 
 
-                            <Icons name="social-instagram" size={25} color={"white"} />
+                            <Icons name="social-instagram" size={20} color={"white"} />
 
                         </View>
                     </View>
@@ -103,7 +108,7 @@ componentDidMount(){
                             <View style={{ flex: 3, flexDirection: 'row',}}>
                                 <View style={container}>
                                     <Text style={[textTitle,{fontSize:12}]}>GIÁ PHÒNG</Text>
-                                    <Text style={[textTitle,{color:'#089cfb'}]}>{rent_cost} tr/ng</Text>
+                                    <Text style={[textTitle,{color:'#089cfb'}]}>{this.formatCash(rent_cost)}/người</Text>
                                 </View>
                                 <View style={container}>
                                     <Text style={[textTitle,{fontSize:12}]}>DIỆN TÍCH</Text>
@@ -111,7 +116,7 @@ componentDidMount(){
                                 </View>
                                 <View style={container}>
                                     <Text style={[textTitle,{fontSize:12}]}>ĐẶT CỌC</Text>
-                                    <Text style={[textTitle,{color:'#089cfb'}]}>{Deposit} tháng</Text>
+                                    <Text style={[textTitle,{color:'#089cfb'}]}>{this.formatCash(Deposit)} tháng</Text>
                                 </View>
                             </View>
                         </View>

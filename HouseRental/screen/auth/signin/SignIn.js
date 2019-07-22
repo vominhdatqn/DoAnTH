@@ -230,7 +230,7 @@ const { width, height } = Dimensions.get('window');
                     flex: 1, alignItems: 'center', justifyContent: 'flex-start', marginHorizontal: 34,
                   }}
                   >
-                    <Button type="sm" >
+                    <Button type="sm" onPress={() => this.props.navigation.navigate('SignUp')}>
                       Sign Up
               </Button>
                   </View>

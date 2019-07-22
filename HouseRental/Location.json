@@ -1,47 +1,98 @@
 [
   {
-    "name": "Independence Palace",
-    "address": "135 Nam Kỳ Khởi Nghĩa, Phường Bến Thành, Quận 1, Hồ Chí Minh 700000",
+    "cate_id": 1,
+    "userID":  1,
+    "name": "Phòng cho thuê Chu Văn An, Quận Bình Thạnh",
+    "address": "376, 3C Chu Văn An, phường 12, Bình Thạnh, Hồ Chí Minh, Việt Nam",
     "coords": {
-      "latitude": 10.7747201,
-      "longitude": 106.69930120000004
+      "latitude": 10.810943,
+      "longitude": 106.700886
     },
-    "image_url": "https://media.glassdoor.com/l/de/cd/ae/b6/the-face-shop.jpg"
+    "image_url": "https://bayleaf.s3.amazonaws.com/property-images%2F1546483875150_IMG_6130.JPG",
+    "rent_cost": 750000,
+    "Deposit": 1,
+    "Street": "376/3C, Chu Văn An",
+    "guild": "Phường 11",
+    "township": "Quận Bình Thạnh",
+    "city": "Hồ Chí Minh",
+    "note": "Vị trí trong hẻm xe hơi đường nội bộ 376/3C Văn An ngay trung tâm Bình Thạnh. Đi Quận 1 chỉ 10p. Thuận tiện di chuyển các quận Gò Vấp, Phú Nhuận, Tân Bình. Gần chợ, trường học, siêu thị, bệnh viện, cửa hàng 24h. \n\nPhòng nội thất mới, cao cấp, decor phong cách tối giản sang trọng, trang bị đầy đủ tiện nghi, chỉ cần xách vali vào ở. \n\nDiện tích phòng 20-25m2. Tất cả các phòng đều có ban công và cửa sổ thoáng mát, khu vực an ninh yên tĩnh. Giá thuê chỉ từ 4tr5-5tr5/tháng. FREE máy giặt, máy sấy, Wifi.\n\nPhù hợp cho nhân viên văn phòng, quản lý, chuyên viên, người nước ngoài công tác dài hạn.\n\n",
+    "phone": "0945222217"
   },
   {
-    "name": "Turtle Lake",
-    "address": "Turtle Lake, phường 6, District 3, Ho Chi Minh City",
+    "cate_id": 1,
+    "userID":  3,
+    "name": "Phòng cho thuê Điện Biên Phủ, Quận Bình Thạnh",
+    "address": "372, 19 Điện Biên Phủ, Phường 25, Bình Thạnh, Hồ Chí Minh, Việt Nam",
     "coords": {
-      "latitude": 10.780060,
-      "longitude": 106.693410
+      "latitude": 10.799087,
+      "longitude": 106.7197939
     },
-    "image_url": "http://dreamercosmetic.com/uploads/source/chekd101/trangdiem/bomyphamchanel5moncaocap11600x450.jpg"
+    "image_url": "https://bayleaf.s3.ap-southeast-1.amazonaws.com/property-images/1551520254704.jpg",
+    "rent_cost": 750000,
+    "Deposit": 1,
+    "Street": "376/3C, Chu Văn An",
+    "guild": "Phường 11",
+    "township": "Quận Bình Thạnh",
+    "city": "Hồ Chí Minh",
+    "note": "Vị trí trong hẻm xe hơi đường nội bộ 376/3C Văn An ngay trung tâm Bình Thạnh. Đi Quận 1 chỉ 10p. Thuận tiện di chuyển các quận Gò Vấp, Phú Nhuận, Tân Bình. Gần chợ, trường học, siêu thị, bệnh viện, cửa hàng 24h. \n\nPhòng nội thất mới, cao cấp, decor phong cách tối giản sang trọng, trang bị đầy đủ tiện nghi, chỉ cần xách vali vào ở. \n\nDiện tích phòng 20-25m2. Tất cả các phòng đều có ban công và cửa sổ thoáng mát, khu vực an ninh yên tĩnh. Giá thuê chỉ từ 4tr5-5tr5/tháng. FREE máy giặt, máy sấy, Wifi.\n\nPhù hợp cho nhân viên văn phòng, quản lý, chuyên viên, người nước ngoài công tác dài hạn.\n\n",
+    "phone": "0945222217"
   },
   {
-    "name": "Landmark 81",
-    "address": "208 Nguyễn Hữu Cảnh, Phường 22, Bình Thạnh, Hồ Chí Minh 700000",
+    "cate_id": 2,
+    "userID":  3,
+    "name": "Phòng cho thuê 1/54 Thanh Đa, Quận Bình Thạnh",
+    "address": "1/54 Thanh Đa, Phường 27, Bình Thạnh, Hồ Chí Minh, Việt Nam",
     "coords": {
-      "latitude": 10.7951612,
-      "longitude": 106.7195944
+      "latitude": 10.813124,
+      "longitude": 106.720425
     },
-    "image_url": "https://www.vinpearl.com/landmark81/wp-content/uploads/sites/39/2018/09/VP-Luxury-Landmark-81-22-bot.jpg"
+    "image_url": "https://bayleaf.s3.ap-southeast-1.amazonaws.com/property-images/1550568844728.jpg",
+    "rent_cost": 750000,
+    "Deposit": 1,
+    "Street": "376/3C, Chu Văn An",
+    "guild": "Phường 11",
+    "township": "Quận Bình Thạnh",
+    "city": "Hồ Chí Minh",
+    "note": "Vị trí trong hẻm xe hơi đường nội bộ 376/3C Văn An ngay trung tâm Bình Thạnh. Đi Quận 1 chỉ 10p. Thuận tiện di chuyển các quận Gò Vấp, Phú Nhuận, Tân Bình. Gần chợ, trường học, siêu thị, bệnh viện, cửa hàng 24h. \n\nPhòng nội thất mới, cao cấp, decor phong cách tối giản sang trọng, trang bị đầy đủ tiện nghi, chỉ cần xách vali vào ở. \n\nDiện tích phòng 20-25m2. Tất cả các phòng đều có ban công và cửa sổ thoáng mát, khu vực an ninh yên tĩnh. Giá thuê chỉ từ 4tr5-5tr5/tháng. FREE máy giặt, máy sấy, Wifi.\n\nPhù hợp cho nhân viên văn phòng, quản lý, chuyên viên, người nước ngoài công tác dài hạn.\n\n",
+    "phone": "0945222217"
   },
   {
-    "name": "Bui Vien",
-    "address": "Bùi Viện Phạm Ngũ Lão, Quận 1, Hồ Chí Minh",
+    "cate_id": 1,
+    "userID":  1,
+    "name": "Phòng cho thuê Nơ trang long, Quận Bình Thạnh",
+    "address": "482, 43 Nơ Trang Long, phường 7, Bình Thạnh, Hồ Chí Minh, Việt Nam",
     "coords": {
-      "latitude": 10.7667463,
-      "longitude": 106.69247589999998
+      "latitude": 10.8078917,
+      "longitude": 106.6949947
     },
-    "image_url": "http://i.dtinews.vn/images/editor/images/ngovan/12018/19/Big/pho-di-bo-bui-vien-anh-hoang-trieuimg8663-1516201119295.jpg"
+    "image_url": "https://bayleaf.s3.amazonaws.com/property-images%2F1545284357224_IMG_5780.JPG",
+    "rent_cost": 750000,
+    "Deposit": 1,
+    "Street": "376/3C, Chu Văn An",
+    "guild": "Phường 11",
+    "township": "Quận Bình Thạnh",
+    "city": "Hồ Chí Minh",
+    "note": "Vị trí trong hẻm xe hơi đường nội bộ 376/3C Văn An ngay trung tâm Bình Thạnh. Đi Quận 1 chỉ 10p. Thuận tiện di chuyển các quận Gò Vấp, Phú Nhuận, Tân Bình. Gần chợ, trường học, siêu thị, bệnh viện, cửa hàng 24h. \n\nPhòng nội thất mới, cao cấp, decor phong cách tối giản sang trọng, trang bị đầy đủ tiện nghi, chỉ cần xách vali vào ở. \n\nDiện tích phòng 20-25m2. Tất cả các phòng đều có ban công và cửa sổ thoáng mát, khu vực an ninh yên tĩnh. Giá thuê chỉ từ 4tr5-5tr5/tháng. FREE máy giặt, máy sấy, Wifi.\n\nPhù hợp cho nhân viên văn phòng, quản lý, chuyên viên, người nước ngoài công tác dài hạn.\n\n",
+    "phone": "0945222217"
   },
   {
-    "name": "Ben Thanh Market",
-    "address": "Chợ, Lê Lợi, Phường Bến Thành, Quận 1, Hồ Chí Minh 700000",
+    "cate_id": 1,
+    "userID":  1,
+    "name": "Phòng cho thuê 346 Phan Văn Trị, Quận Bình Thạnh",
+    "address": "346 Phan Văn Trị, Phường 11, Bình Thạnh, Hồ Chí Minh, Việt Nam",
     "coords": {
-      "latitude": 10.772550,
-      "longitude": 106.699417
+      "latitude": 10.8198361,
+      "longitude": 106.6946291
     },
-    "image_url": "http://static.asiawebdirect.com/m/bangkok/portals/vietnam/homepage/ho-chi-minh-city/ben-thanh-market/allParagraphs/BucketComponent/ListingContainer/03/image/ben-thanh-market-ext.jpg"
+    "image_url": "https://bayleaf.s3.ap-southeast-1.amazonaws.com/property-images/1550810946995.jpg",
+    "rent_cost": 750000,
+    "Deposit": 1,
+    "Street": "376/3C, Chu Văn An",
+    "guild": "Phường 11",
+    "township": "Quận Bình Thạnh",
+    "city": "Hồ Chí Minh",
+    "note": "Vị trí trong hẻm xe hơi đường nội bộ 376/3C Văn An ngay trung tâm Bình Thạnh. Đi Quận 1 chỉ 10p. Thuận tiện di chuyển các quận Gò Vấp, Phú Nhuận, Tân Bình. Gần chợ, trường học, siêu thị, bệnh viện, cửa hàng 24h. \n\nPhòng nội thất mới, cao cấp, decor phong cách tối giản sang trọng, trang bị đầy đủ tiện nghi, chỉ cần xách vali vào ở. \n\nDiện tích phòng 20-25m2. Tất cả các phòng đều có ban công và cửa sổ thoáng mát, khu vực an ninh yên tĩnh. Giá thuê chỉ từ 4tr5-5tr5/tháng. FREE máy giặt, máy sấy, Wifi.\n\nPhù hợp cho nhân viên văn phòng, quản lý, chuyên viên, người nước ngoài công tác dài hạn.\n\n",
+    "phone": "0945222217"
+ 
   }
 ]

@@ -35,9 +35,9 @@ class PostLocation extends Component {
   }
   _handlerAddItem(location){
     this.props.addItem(location)
-    setTimeout(() => {
+    // setTimeout(() => {
      this.props.navigation.navigate('PostInfo');
-    }, 250);
+    // }, 250);
   }
   render() {
     const {
@@ -67,15 +67,21 @@ class PostLocation extends Component {
         </View>
         <View style={{ height: height * 0.1, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#dddddd', alignItems: 'center' }}>
           <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row' }}>
-            <View style={{ flex: 1, justifyContent: 'space-around' }}>
+            {/* <View style={{ flex: 1, justifyContent: 'space-around' }}>
               <View style={{ height: 28, width: 28, borderRadius: 28, borderWidth: 1 }}>
                 <Icon name="location-on" size={25} />
               </View>
               <Text style={{ fontSize: 13 }}>Vị trí</Text>
+            </View> */}
+            <View style={{ flex: 1, alignItems: 'center' }}>
+            <View style={{ height: 28, width: 28, borderRadius: 28, borderWidth: 1 }}>
+            <Icon name="location-on" size={25} />
             </View>
-            <View style={{ flex: 1, borderTopWidth: 1, borderColor: 'blue' }}>
+            <Text style={{ fontSize: 13 }}>Vị trí</Text>
+          </View>
+            {/* <View style={{ flex: 1, borderTopWidth: 1, borderColor: 'blue' }}>
 
-            </View>
+            </View> */}
           </View>
           <View style={{ flex: 1, alignItems: 'center' }}>
             <View style={{ height: 28, width: 28, borderRadius: 28, borderWidth: 1 }}>

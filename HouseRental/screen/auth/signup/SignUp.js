@@ -1,4 +1,3 @@
-/* eslint-disable react/no-did-mount-set-state */
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -15,6 +14,7 @@ import {
   from 'react-native';
 import { Checkbox, TextField, Button } from '../../../component/mobile';
 import { emailRegex, passwordRegex, nameRegex } from '../../../constants/regexp';
+import signUp from '../../../api/signup'; 
 const { width, height } = Dimensions.get('window');
 
 export default class SignUp extends Component {
@@ -24,16 +24,16 @@ export default class SignUp extends Component {
       color: 'rgba(111, 111, 111, 0.2)',
       marginHorizontal: 56,
       marginTop: 15,
-      name: '',
+      username: '',
       email: '',
       password: '',
       checked: false,
     };
   }
 
-  validateName = name => {
+  validateName = username => {
     const re = nameRegex;
-    return re.test(name);
+    return re.test(username);
   };
 
   validateEmail = email => {
@@ -118,9 +118,9 @@ export default class SignUp extends Component {
     }
   }
   handlerSignUp = async () => {
-    const { name, email, password } = this.state;
+    const { username, email, password } = this.state;
 
-    if (name === '' && email === '' && password === '') {
+    if (username === '' && email === '' && password === '') {
       this.setState({
         errorName: 'Please enter an name',
         validName: true,
@@ -133,7 +133,11 @@ export default class SignUp extends Component {
       console.log('no checked');
     } else {
       try {
-
+        const response = await signUp(email, password, username);
+        const responseJSON = await response.json();
+        if (responseJSON.code === 200) {
+          this.props.navigation.navigate("SignIn")
+        }
       } catch (error) {
         console.log(error);
       }
@@ -144,7 +148,7 @@ export default class SignUp extends Component {
       container, header, logo, body, footer, titleText, viewTextField,
     } = styles;
     const {
-      marginHorizontal, name, email, password, marginTop,
+      marginHorizontal, username, email, password, marginTop,
     } = this.state;
     return (
       <SafeAreaView style={container}>
@@ -165,11 +169,10 @@ export default class SignUp extends Component {
                   <TextField
                     label="Name"
                     inputProps={{
-                      value: name,
-                      // eslint-disable-next-line no-shadow
-                      onChangeText: name => {
-                        this._onProcessNameChange(name);
-                        this.setState({ name });
+                      value: username,
+                      onChangeText: (username) => {
+                        this._onProcessNameChange(username);
+                        this.setState({ username });
                       },
                     }}
                     helperText={this.state.errorName}
@@ -182,8 +185,8 @@ export default class SignUp extends Component {
                     label="Email"
                     inputProps={{
                       value: email,
-                      // eslint-disable-next-line no-shadow
-                      onChangeText: email => {
+                     
+                      onChangeText: (email) => {
                         this._onProcessEmailChange(email);
                         this.setState({ email });
                       },
@@ -200,8 +203,8 @@ export default class SignUp extends Component {
                     inputProps={{
                       value: password,
                       secureTextEntry: true,
-                      // eslint-disable-next-line no-shadow
-                      onChangeText: password => {
+                     
+                      onChangeText: (password) => {
                         this._onProcessPasswordChange(password);
                         this.setState({ password });
                       },

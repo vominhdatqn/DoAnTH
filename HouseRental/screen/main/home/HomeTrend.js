@@ -15,12 +15,12 @@ export default class HomeTrend extends Component {
     super(props);
     this.state = {
       data: [
-        { key: 1, township: "Bình Thạnh", hinh: "https://image.tienphong.vn/w665/Uploaded/2018/uqvpbciv/2018_08_29/toan_canh_vgdf.jpg" },
-        { key: 2, township: "Quận 7", hinh: "http://angialand.com.vn/wp-content/uploads/2016/08/duanquan7.jpg" },
-        { key: 3, township: "Quận 3", hinh: "https://mytourcdn.com/upload_images/Image/Location/24_10_2016/11/du-lich-quan-3-da-nang-mytour-1.jpg" },
-        { key: 4, township: "Quận 10", hinh: "https://khl.vn/wp-content/uploads/2017/05/can-ho-riverapark-2.jpg" },
-        { key: 5, township: "Quận Thủ Đức", hinh: "http://datvinhtien.vn/Editor/assets/Khang%20gia%20PVD.jpg" },
-        { key: 6, township: "Quận 1", hinh: "https://vietnambiz.mediacdn.vn/stores/news_dataimages/linhlt/112018/14/17/4107_shutterstock_Trung_tam_Q.1.jpg" },
+        { key: "Bình Thạnh", township: "Bình Thạnh", hinh: "https://image.tienphong.vn/w665/Uploaded/2018/uqvpbciv/2018_08_29/toan_canh_vgdf.jpg" },
+        { key: "Quận     7", township: "7", hinh: "http://angialand.com.vn/wp-content/uploads/2016/08/duanquan7.jpg" },
+        { key: "Quận     3", township: "3", hinh: "https://mytourcdn.com/upload_images/Image/Location/24_10_2016/11/du-lich-quan-3-da-nang-mytour-1.jpg" },
+        { key: "Quận     10", township: "10", hinh: "https://khl.vn/wp-content/uploads/2017/05/can-ho-riverapark-2.jpg" },
+        { key: "Quận  Thủ Đức", township: "Thủ Đức", hinh: "https://blog.rever.vn/hubfs/gigamall_4-min.jpg" },
+        { key: "Quận      1", township: "1", hinh: "https://vietnambiz.mediacdn.vn/stores/news_dataimages/linhlt/112018/14/17/4107_shutterstock_Trung_tam_Q.1.jpg" },
       ]
     }
   }
@@ -45,14 +45,14 @@ export default class HomeTrend extends Component {
               <ImageBackground source={{ uri: item.hinh }}
                 style={viewBackgroundImage} resizeMode='cover'
                 borderRadius={6}>
-                <Text style={GridViewTextLayout}>{item.township}</Text>
+                <Text style={GridViewTextLayout}>{item.key}</Text>
               </ImageBackground>
               </TouchableOpacity>
             </View>
            
           }
           numColumns={3}
-          keyExtractor={(item, index) => item.key}
+          keyExtractor={(item, index) => `steps-${item.key}`}
         />
 
       </View>

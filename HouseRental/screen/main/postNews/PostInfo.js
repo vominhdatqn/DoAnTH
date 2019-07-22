@@ -36,9 +36,9 @@ class PostInfo extends Component {
   }
   _handlerAddItem(info){
     this.props.addItem(info)
-    setTimeout(() => {
+    // setTimeout(() => {
      this.props.navigation.navigate('PostUtility');
-    }, 250);
+    // }, 250);
   }
 
   render() {

@@ -24,7 +24,8 @@ const houseReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        house: action.payload
+        house: state.house.concat(action.payload)
+        // [...state.house, action.payload]
       };
 
     case FETCH_PRODUCTS_FAILURE:

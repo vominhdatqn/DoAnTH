@@ -8,19 +8,26 @@ export default class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nameSearch: '',
+      nameSearch: "",
       borderColor: '#d9d9d9',
       data: [],
+      min: 700000,
+      max: 7000000,
     };
   }
   formatRangeHigh(currentRangeHigh) {
-    const RangeHigh = (currentRangeHigh).toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    this.setState({ RangeHigh });
+    this.setState({ RangeHigh: currentRangeHigh });
   }
   formatRangeLow(currentRangeLow) {
-    const RangeLow = (currentRangeLow).toFixed(3).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-    this.setState({ RangeLow });
+    this.setState({ RangeLow: currentRangeLow });
   }
+  formatCash = n => {
+    if (n < 1e3) return n;
+    if (n >= 1e3 && n < 1e6) return +(n / 1e6).toFixed(1) + " triệu";
+    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + " triệu";
+    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + " tỷ";
+    if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+  };
   onFocus() {
     this.setState({ borderColor: '#0693e3' })
   }
@@ -34,26 +41,35 @@ export default class Search extends Component {
       this.setState({ showClose: true });
     }
   }
- async handlerSearch(nameSearch) {
+ async handlerSearch(nameSearch, RangeLow, RangeHigh) {
     try {
-      const response = await searchStreet(nameSearch);
+      const response = await searchStreet(nameSearch, RangeLow, RangeHigh);
       const responeJSON = await response.json();
         this.setState({data: responeJSON.data});
   } catch (error) {
     console.log(error);
     }
   };
+  renderHeader = () => {
+    return (
+      <View style={{ marginLeft: 16, padding: 10 }}>
+        <Text style={{}}>{`Kết quả tìm kiếm (${this.state.data.length})`}</Text>
+      </View>
+    );
+  };
   render() {
     const { container, header, body, borderSearch } = styles;
-    const { nameSearch, RangeHigh, borderColor, showClose, RangeLow, data } = this.state;
-    const iconClone = showClose ? <Ionicons name="close" size={20} color="#0693e3" /> : null;
+    const { nameSearch, RangeHigh, borderColor, showClose, RangeLow, data, min, max } = this.state;
+    const iconClone = showClose ? <Ionicons name="close" size={20} color="#0693e3" onPress={()=> this.setState({ nameSearch: '' })} /> : null;
+   
     return (
       <SafeAreaView style={container}>
         <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "position" : null}
           style={{ flex: 1 }}>
+           
           <View style={header}>
             <View style={[borderSearch, { borderColor }]}>
-              <TouchableOpacity >
+              <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                 <View style={{ flex: 1, flexDirection: 'row', borderRadius: 12, backgroundColor: '#d9d9d9', justifyContent: 'center', alignItems: 'center' }}>
                   <Ionicons name="source-commit-start-next-local" size={23} color="#0693e3" />
                   <Text style={{ fontSize: 12, fontWeight: '400', fontFamily: 'Cochin', color: '#0693e3', marginRight: 4 }}>HCM</Text>
@@ -72,7 +88,7 @@ export default class Search extends Component {
                   onFocus={this.onFocus.bind(this)}
                   onBlur={this.onBlur.bind(this)}
                   returnKeyType="search"
-                  onSubmitEditing={() => this.handlerSearch(nameSearch)}
+                  onSubmitEditing={() => this.handlerSearch(nameSearch, RangeLow, RangeHigh)}
                 />
               </View>
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -80,22 +96,22 @@ export default class Search extends Component {
               </View>
             </View>
           </View>
-          <View style={body}>
-            
+          {/* <View style={body}> */}
+          <ScrollView>
             <View style={{ height: height * 0.35, marginHorizontal: 20 }}>
               <View style={{ flexDirection: 'row', height: 40 }}>
                 <View style={{ alignItems: 'flex-start', flex: 1 }}>
-                  <Text >{RangeLow} triệu</Text>
+                  <Text >{this.formatCash(RangeLow)}</Text>
                 </View>
                 <View style={{ alignItems: 'flex-end', flex: 1 }}>
-                  <Text >{RangeHigh} triệu</Text>
+                  <Text >{this.formatCash(RangeHigh)}</Text>
                 </View>
               </View>
               <RangeSlider
                 style={{ height: 80 }}
                 gravity={'center'}
-                min={1000}
-                max={2500}
+                min={min}
+                max={max}
                 step={20}
                 textFormat="Price: %d"
                 selectionColor="#3df"
@@ -106,16 +122,16 @@ export default class Search extends Component {
                   this.setState({ rangeLow: low, rangeHigh: high });
                 }} />
               <View style={{ height: 40, backgroundColor: '#004c7e', justifyContent: 'center' }}>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => this.handlerSearch(nameSearch, RangeLow, RangeHigh)}>
                   <Text style={{ color: 'white', fontSize: 14, fontWeight: 'bold', textAlign: 'center' }}>Áp Dụng</Text>
                 </TouchableOpacity>
               </View>
             </View>
 
-            <View style={{ flex: 9, width: '100%',height:height }}>
                 <FlatList
+                ListHeaderComponent={this.renderHeader}
                 data={data}
-                keyExtractor={(item,index) => index.toString()}
+                keyExtractor={(item,index) => `${item.house_id}`}
                 renderItem={({item}) => (
                   <View style={{ height: 110, marginHorizontal: 20, flexDirection: 'row',marginBottom: 10  }}>
                 
@@ -147,7 +163,7 @@ export default class Search extends Component {
                       <Text style={{fontSize:10,fontWeight:'700',fontFamily:'Cochin',color:"gray"}}>TÌM NGƯỜI THUÊ</Text>
                     </View>
                     <View style={{alignItems:'flex-end',flex:1}}>
-                      <Text style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"#e91e63"}}>{item.rent_cost} triệu/phòng</Text>
+                      <Text style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"#e91e63"}}>{this.formatCash(item.rent_cost)}/phòng</Text>
                     </View>
                   </View>
                   <View style={{ flex: 2,justifyContent:'center' }}>
@@ -162,10 +178,9 @@ export default class Search extends Component {
                 )}
                 
                 />
-              
-
-            </View>
-          </View>
+           
+          {/* </View> */}
+          </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     );

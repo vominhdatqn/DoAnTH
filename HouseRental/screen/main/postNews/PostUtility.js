@@ -37,9 +37,9 @@ class PostUtility extends Component {
   }
   _handlerAddItem(image) {
     this.props.addItem(image)
-    setTimeout(() => {
+    // setTimeout(() => {
       this.props.navigation.navigate('PostConfirm');
-    }, 250);
+    // }, 250);
   }
   render() {
     const {

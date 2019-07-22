@@ -36,9 +36,11 @@ componentDidMount(){
 fetchTrend = async () => {
  
   const { township } = this.props.navigation.state.params;
+  console.log(township);
     try {
         const response = await getTrend(township);
         const responseJSON = await response.json();
+        console.log(responseJSON.data);
         this.setState({
           data:responseJSON.data
           })
@@ -47,7 +49,13 @@ fetchTrend = async () => {
     }
 
 }
-
+formatCash = n => {
+  if (n < 1e3) return n;
+  if (n >= 1e3 && n < 1e6) return +(n / 1e6).toFixed(1) + " triệu";
+  if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(1) + " triệu";
+  if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(1) + " tỷ";
+  if (n >= 1e12) return +(n / 1e12).toFixed(1) + "T";
+};
 
     render() {
         const {textTitle,header } = styles;
@@ -61,7 +69,7 @@ fetchTrend = async () => {
                         <View style={header}>
                             
                             <TouchableOpacity style={{ justifyContent: 'center' }} onPress={() => this.props.navigation.goBack()}>
-                                <Icons name="arrow-left" size={25} color={"white"} />
+                                <Icons name="arrow-left" size={20} color={"white"} />
                             </TouchableOpacity>
 
 
@@ -103,7 +111,7 @@ fetchTrend = async () => {
                       <Text style={{fontSize:10,fontWeight:'700',fontFamily:'Cochin',color:"gray"}}>TÌM NGƯỜI THUÊ</Text>
                     </View>
                     <View style={{alignItems:'flex-end',flex:1}}>
-                      <Text style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"#e91e63"}}>{item.rent_cost} triệu/phòng</Text>
+                      <Text style={{fontSize:12,fontWeight:'700',fontFamily:'Cochin',color:"#e91e63"}}>{this.formatCash(item.rent_cost)}/phòng</Text>
                     </View>
                   </View>
                   <View style={{ flex: 2,justifyContent:'center' }}>

@@ -3,6 +3,7 @@ package com.houserental;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.ashideas.rnrangeslider.RangeSliderPackage;
 import com.airbnb.android.react.maps.MapsPackage;
@@ -29,6 +30,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNCWebViewPackage(),
             new AsyncStoragePackage(),
             new RangeSliderPackage(),
             new MapsPackage(),

@@ -8,12 +8,15 @@ import {
   StyleSheet,
   Platform,
   Dimensions,
-  StatusBar
+  StatusBar,
+  Modal,
+  Alert,
 } from 'react-native';
 import { TextField, Button } from '../../../component/mobile';
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { WebView } from 'react-native-webview';
 import { connect } from 'react-redux';
-import { removeItem, getUserToken } from '../../../redux/actionCreator';
+import { removeItem, getUserToken, fetchHouses } from '../../../redux/actionCreator';
 import checkToken from '../../../api/checkToken';
 const { height } = Dimensions.get('window');
 
@@ -24,6 +27,8 @@ class PostConfirm extends Component {
       phone: '',
       houseName: ``,
       note: '',
+      showModal: false,
+      status: "Pending"
     }
 
   }
@@ -63,65 +68,81 @@ class PostConfirm extends Component {
     houseName,
     phone,
     note,
+    data,
   ) {
-
-
-    if (token !== null) {
-      const responseJSON = await checkToken(token);
-      const { userID } = responseJSON.user;
-
-      const formData = new FormData();
-
-      formData.append('imgFile', {
-        uri,
-        type,
-        name,
-      });
-      formData.append('township', township);
-      formData.append('city', city);
-      formData.append('guild', guild);
-      formData.append('Street', Street);
-      formData.append('gender', gender);
-      formData.append('cate_id', cate_id);
-      formData.append('rent_cost', rent_cost);
-      formData.append('Deposit', Deposit);
-      formData.append('internet', internet);
-      formData.append('electric_money', electric_money);
-      formData.append('water_money', water_money);
-      formData.append('capacity', capacity);
-      formData.append('userID', userID);
-      formData.append('houseName', houseName);
-      formData.append('phone', phone);
-      formData.append('note', note);
-      
-      // formData.append('township',township);
-      try {
-        // const response = await fetch('http://192.168.1.252:3001/upload', {
-        const response = await fetch('http://192.168.1.15:3001/upload', {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "multipart/form-data",
-          },
-          body: formData
-        },);
-        const responseJSON = await response.json();
-
-        if (responseJSON.status === 200) {
-          this.props.removeItem();
-          this.props.navigation.navigate('Home');
+    console.log("data ne",data)
+    if (data.title === "success") {
+      this.setState({ showModal: false, status: "Complete" });
+      if (token !== null) {
+        const responseJSON = await checkToken(token);
+        const { userID } = responseJSON.user;
+  
+        const formData = new FormData();
+  
+        formData.append('imgFile', {
+          uri,
+          type,
+          name,
+        });
+        formData.append('township', township);
+        formData.append('city', city);
+        formData.append('guild', guild);
+        formData.append('Street', Street);
+        formData.append('gender', gender);
+        formData.append('cate_id', cate_id);
+        formData.append('rent_cost', rent_cost);
+        formData.append('Deposit', Deposit);
+        formData.append('internet', internet);
+        formData.append('electric_money', electric_money);
+        formData.append('water_money', water_money);
+        formData.append('capacity', capacity);
+        formData.append('userID', userID);
+        formData.append('houseName', houseName);
+        formData.append('phone', phone);
+        formData.append('note', note);
+  
+        // formData.append('township',township);
+        try {
+          // const response = await fetch('http://192.168.43.113:3001/upload', {
+          const response = await fetch('https://dat-khoa.herokuapp.com/upload', {
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "multipart/form-data",
+            },
+            body: formData
+          });
+          const responseJSON = await response.json();
+  
+          if (responseJSON.status === 200) {
+            this.props.removeItem();
+            this.props.fetchHouses(1, 1);
+            Alert.alert(
+              'Message',
+              'Post successfully',
+              [
+                {text: 'OK', onPress: () => this.props.navigation.navigate('Home')},
+              ],
+              {cancelable: false},
+            );
+            ;
+          }
+        } catch (error) {
+          console.log("lỗi", error);
         }
-      } catch (error) {
-        console.log("lỗi",error);
       }
-    }
+  } else if (data.title === "cancel") {
+      this.setState({ showModal: false, status: "Cancelled" });
+  } else {
+      return;
+  }
 
   }
   render() {
     const {
       phone, houseName, note,
     } = this.state;
-
+    console.log(this.state.status)
     if (this.props.arrPost.length === 0) return null;
 
     const { township, city, guild, Street } = this.props.arrPost[0];
@@ -137,7 +158,7 @@ class PostConfirm extends Component {
     } = this.props.arrPost[1];
     const { uri, type, name } = this.props.arrPost[2];
     this.props.getUserToken().then(() => this.props.token);
-
+   
     // console.log("postconfirm", this.props.arrPost);
     return (
       <SafeAreaView style={styles.container}>
@@ -233,32 +254,62 @@ class PostConfirm extends Component {
               }}
             />
             <View style={{ marginBottom: 20 }}>
-              <Button onPress={
-                () => this.uploadImageToServer(
-                  uri,
-                  type,
-                  name,
-                  township,
-                  city,
-                  guild,
-                  Street,
-                  gender,
-                  cate_id,
-                  rent_cost,
-                  Deposit,
-                  internet,
-                  electric_money,
-                  water_money,
-                  capacity,
-                  this.props.token,
-                  houseName,
-                  phone,
-                  note,
-                )
+              <Button onPress={ () => this.setState({ showModal: true })
+                // () => this.uploadImageToServer(
+                //   uri,
+                //   type,
+                //   name,
+                //   township,
+                //   city,
+                //   guild,
+                //   Street,
+                //   gender,
+                //   cate_id,
+                //   rent_cost,
+                //   Deposit,
+                //   internet,
+                //   electric_money,
+                //   water_money,
+                //   capacity,
+                //   this.props.token,
+                //   houseName,
+                //   phone,
+                //   note,
+                // )
               }
               >
                 Đăng phòng
                   </Button>
+                  <Modal
+              visible={this.state.showModal}
+              onRequestClose={() => this.setState({ showModal: false })}
+          >
+              <WebView source={{ uri: "https://dat-khoa.herokuapp.com" }}
+                  onNavigationStateChange={data =>
+                      this.uploadImageToServer( uri,
+                        type,
+                        name,
+                        township,
+                        city,
+                        guild,
+                        Street,
+                        gender,
+                        cate_id,
+                        rent_cost,
+                        Deposit,
+                        internet,
+                        electric_money,
+                        water_money,
+                        capacity,
+                        this.props.token,
+                        houseName,
+                        phone,
+                        note,
+                        data)
+                  }
+                  injectedJavaScript={`document.f1.submit()`}
+              /> 
+          </Modal>
             </View>
           </KeyboardAvoidingView>
         </ScrollView>
@@ -279,4 +330,4 @@ const mapStateToProps = state => ({
 });
 
 
-export default connect(mapStateToProps, { removeItem, getUserToken })(PostConfirm);
+export default connect(mapStateToProps, { removeItem, getUserToken, fetchHouses })(PostConfirm);
